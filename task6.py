@@ -15,7 +15,7 @@ def greedy_algorithm(items, budget):
             total_calories += items[item]['calories']
             selected_items.append(item)
 
-    return selected_items, total_cost, total_calories
+    return selected_items, total_calories
 
 
 def dynamic_programming(items, budget):
@@ -26,13 +26,15 @@ def dynamic_programming(items, budget):
     for i in range(1, n + 1):
         for w in range(1, budget + 1):
             if items[item_list[i-1]]['cost'] <= w:
-                dp[i][w] = max(dp[i-1][w], dp[i-1][w-items[item_list[i-1]]
-                               ['cost']] + items[item_list[i-1]]['calories'])
+                dp[i][w] = max(dp[i-1][w],
+                               dp[i-1][w - items[item_list[i-1]]['cost']] +
+                               items[item_list[i-1]]['calories'])
             else:
                 dp[i][w] = dp[i-1][w]
 
     w = budget
     selected_items = []
+
     for i in range(n, 0, -1):
         if dp[i][w] != dp[i-1][w]:
             selected_items.append(item_list[i-1])
@@ -52,7 +54,7 @@ if __name__ == "__main__":
         "potato": {"cost": 25, "calories": 350}
     }
 
-    budget = 100
+    budget = 75
     greedy_result = greedy_algorithm(items, budget)
     dp_result = dynamic_programming(items, budget)
 
