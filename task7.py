@@ -13,6 +13,6 @@ sum_counts = pd.value_counts(sums, sort=False)
 probabilities = sum_counts / N
 
 results_df = pd.DataFrame({'Сума': range(2, 13),
-                           'Імовірність, %': (probabilities * 100).reindex(range(2, 13), fill_value=0).values})
+                           'Імовірність, %': (probabilities * 100).reindex(range(2, 13)).values})
 
 print(results_df)
