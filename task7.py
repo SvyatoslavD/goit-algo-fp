@@ -8,7 +8,7 @@ c2 = np.random.randint(1, 7, N)
 
 sums = c1 + c2
 
-sum_counts = pd.value_counts(sums, sort=False)
+sum_counts = pd.value_counts(sums)
 
 probabilities = sum_counts / N
 
