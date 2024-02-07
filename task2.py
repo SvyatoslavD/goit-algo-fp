@@ -1,22 +1,28 @@
-from turtle import goto, pu, pd, color, done
+import turtle
 
 
-def level(ax, ay, bx, by, depth=0):
-    if depth > 0:
-        dx, dy = bx-ax, ay-by
-        x3, y3 = bx-dy, by-dx
-        x4, y4 = ax-dy, ay-dx
-        x5, y5 = x4 + (dx - dy)/2, y4 - (dx + dy)/2
-        goto(ax, ay), pd()
-        for x, y in ((bx, by), (x3, y3), (x4, y4), (ax, ay)):
-            goto(x, y)
-        pu()
-        level(x4, y4, x5, y5, depth - 1)
-        level(x5, y5, x3, y3, depth - 1)
+def draw_pifagor_tree(t, branch_length, level):
+    if level == 0:
+        return
+
+    t.forward(branch_length * level)
+    t.right(45)
+    draw_pifagor_tree(t, branch_length, level-1)
+    t.left(90)
+    draw_pifagor_tree(t, branch_length, level-1)
+    t.right(45)
+    t.backward(branch_length * level)
 
 
-if __name__ == '__main__':
-    color('red', 'yellow')
-    pu()
-    level(-100, 500, 100, 500, depth=8)
-    done()
+if __name__ == "__main__":
+    level = int(input("Рівень рекурсії: "))
+
+    screen = turtle.Screen()
+    screen.setup(width=800, height=600)
+    screen.bgcolor("white")
+
+    t = turtle.Turtle()
+    t.left(90)
+    draw_pifagor_tree(t, 10, level)
+
+    screen.mainloop()
